@@ -1,0 +1,22 @@
+{
+  "titleAuth": "Story Apps",
+  "titleAppBar": "Stories",
+  "loginTitle": "Login",
+  "loginAlertSuccess": "Login success",
+  "loginAlertFailed": "Login failed",
+  "nothaveAccount": "Don't have an account yet?",
+  "registerTitle": "Register",
+  "hasAccount": "Already have an account",
+  "registerAlertSuccess": "Registration success",
+  "registerAlertFailed": "Registration failed",
+  "logoutAlertSuccess": "Logout success",
+  "logoutAlertFailed": "Logout failed",
+  "noStory": "No stories",
+  "addStory": "Add Story",
+  "gallery": "Gallery",
+  "camera": "Camera",
+  "upload": "Upload",
+  "uploading": "Uploading...",
+  "addStoryAlertSuccess": "Add story success",
+  "addStoryAlertFailed": "Add story failed"
+}

@@ -1,0 +1,22 @@
+{
+  "titleAuth": "Aplikasi Cerita",
+  "titleAppBar": "Cerita",
+  "loginTitle": "Masuk",
+  "loginAlertSuccess": "Masuk berhasil",
+  "loginAlertFailed": "Masuk gagal",
+  "nothaveAccount": "Belum punya akun?",
+  "registerTitle": "Daftar",
+  "hasAccount": "Sudah punya akun?",
+  "registerAlertSuccess": "Pendaftaran berhasil",
+  "registerAlertFailed": "Pendaftaran gagal",
+  "logoutAlertSuccess": "Keluar berhasil",
+  "logoutAlertFailed": "Keluar gagal",
+  "noStory": "Tidak ada cerita",
+  "addStory": "Tambah cerita",
+  "gallery": "Galeri",
+  "camera": "Kamera",
+  "upload": "Unggah",
+  "uploading": "Unggah...",
+  "addStoryAlertSuccess": "Tambah cerita berhasil",
+  "addStoryAlertFailed": "Tambah cerita gagal"
+}
