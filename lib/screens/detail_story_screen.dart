@@ -6,7 +6,12 @@ import 'package:story_app_submission/utils/no_internet.dart';
 
 class DetailStoryScreen extends StatefulWidget {
   final String storyId;
-  const DetailStoryScreen({super.key, required this.storyId});
+  final Function() onBack;
+  const DetailStoryScreen({
+    super.key,
+    required this.storyId,
+    required this.onBack,
+  });
 
   @override
   State<DetailStoryScreen> createState() => _DetailStoryScreenState();
@@ -68,7 +73,7 @@ class _DetailStoryScreenState extends State<DetailStoryScreen> {
                       child: IconButton(
                         key: const ValueKey('backButton'),
                         icon: const Icon(Icons.arrow_back, color: Colors.white),
-                        onPressed: () => Navigator.pop(context),
+                        onPressed: () => widget.onBack(),
                       ),
                     ),
                   ),

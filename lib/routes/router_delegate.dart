@@ -104,7 +104,13 @@ class MyRouterDelegate extends RouterDelegate<PageConfiguration>
     if (selectedStory != null)
       MaterialPage(
         key: ValueKey(selectedStory),
-        child: DetailStoryScreen(storyId: selectedStory!),
+        child: DetailStoryScreen(
+          storyId: selectedStory!,
+          onBack: () {
+            selectedStory = null;
+            notifyListeners();
+          },
+        ),
       ),
   ];
 
