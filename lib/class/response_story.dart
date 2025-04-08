@@ -57,6 +57,8 @@ class Story {
   final String photoUrl;
   final String id;
   final String createdAt;
+  final double? lat;
+  final double? lon;
 
   Story({
     required this.name,
@@ -64,6 +66,8 @@ class Story {
     required this.photoUrl,
     required this.id,
     required this.createdAt,
+    this.lat,
+    this.lon,
   });
 
   factory Story.fromJson(Map<String, dynamic> json) {
@@ -73,6 +77,8 @@ class Story {
       photoUrl: json['photoUrl'],
       id: json['id'],
       createdAt: json['createdAt'],
+      lat: json['lat'] != null ? (json['lat'] as num).toDouble() : null,
+      lon: json['lon'] != null ? (json['lon'] as num).toDouble() : null,
     );
   }
 
@@ -83,6 +89,8 @@ class Story {
       'photoUrl': photoUrl,
       'id': id,
       'createdAt': createdAt,
+      'lat': lat,
+      'lon': lon,
     };
   }
 }

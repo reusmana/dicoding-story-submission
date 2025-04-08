@@ -2,12 +2,14 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:story_app_submission/class/story_add.dart';
 import 'package:story_app_submission/common.dart';
 import 'package:story_app_submission/providers/home_provider.dart';
 import 'package:story_app_submission/providers/story_provider.dart';
+import 'package:story_app_submission/widgets/put_maps.dart';
 
 class AddStoryScreen extends StatefulWidget {
   final Function() onSend;
@@ -19,11 +21,17 @@ class AddStoryScreen extends StatefulWidget {
 
 class _AddStoryScreenState extends State<AddStoryScreen> {
   TextEditingController descriptionController = TextEditingController();
+  late LatLng? maps;
 
   @override
   void dispose() {
     descriptionController.dispose();
     super.dispose();
+  }
+
+  void getMaps(LatLng latLng) async {
+    print(latLng);
+    maps = latLng;
   }
 
   @override
@@ -55,6 +63,11 @@ class _AddStoryScreenState extends State<AddStoryScreen> {
                     ),
                   )
                   : _showImage(),
+              PutMaps(
+                selectMaps: (LatLng latLng) {
+                  getMaps(latLng);
+                },
+              ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
@@ -132,6 +145,8 @@ class _AddStoryScreenState extends State<AddStoryScreen> {
     final story = StoryAdd(
       photo: newBytes,
       description: descriptionController.text,
+      lat: maps?.latitude,
+      lon: maps?.longitude,
       filename: fileName,
     );
     await storyProvider.addStory(story);
@@ -198,7 +213,7 @@ class _AddStoryScreenState extends State<AddStoryScreen> {
 
   Widget _showImage() {
     final imagePath = context.watch<HomeProvider>().imagePath;
-    return Container(
+    return SizedBox(
       height: 400,
       width: double.infinity,
       child:

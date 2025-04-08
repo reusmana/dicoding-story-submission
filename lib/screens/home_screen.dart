@@ -28,14 +28,35 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final ScrollController scrollController = ScrollController();
+
   @override
   void initState() {
     super.initState();
-    Future.microtask(() {
-      if (mounted) {
-        context.read<StoryProvider>().getStories();
+    final storyProv = context.read<StoryProvider>();
+
+    scrollController.addListener(() {
+      if (scrollController.position.pixels >=
+          scrollController.position.maxScrollExtent) {
+        if (storyProv.sizeItems != null) {
+          storyProv.getStories();
+        }
       }
     });
+    Future.microtask(() async {
+      storyProv.getStories();
+    });
+  }
+
+  Future<void> refresh() async {
+    final storyProv = context.read<StoryProvider>();
+    await storyProv.getStories();
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -118,34 +139,75 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Consumer<StoryProvider>(
-          builder: (context, ref, child) {
-            if (ref.isLoading) {
-              return Center(child: const CircularProgressIndicator());
-            }
-            if (ref.errorMessage != null) {
-              return Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    NoInternet.getFriendlyErrorMessage(ref.errorMessage!),
-                  ),
+      body: Consumer<StoryProvider>(
+        builder: (context, ref, child) {
+          if (ref.isLoading) {
+            return Center(child: const CircularProgressIndicator());
+          }
+          if (ref.errorMessage != null) {
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(NoInternet.getFriendlyErrorMessage(ref.errorMessage!)),
+                    SizedBox(height: 10),
+                    IconButton(
+                      iconSize: 60,
+                      onPressed: () async {
+                        await refresh();
+                      },
+                      icon: Icon(Icons.restore),
+                    ),
+                  ],
                 ),
-              );
-            }
-
-            if (ref.stories.isEmpty) {
-              return Center(child: Text(AppLocalizations.of(context)!.noStory));
-            }
-            return ListCards(
-              context: context,
-              ref: ref,
-              onTapped: widget.onTapped,
+              ),
             );
-          },
-        ),
+          }
+
+          if (ref.stories.isEmpty) {
+            return Center(child: Text(AppLocalizations.of(context)!.noStory));
+          }
+          return Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ListCards(
+                  context: context,
+                  ref: ref,
+                  onTapped: widget.onTapped,
+                  controller: scrollController,
+                ),
+              ),
+              Consumer<StoryProvider>(
+                builder: (context, ref, child) {
+                  if (ref.loadingPaginate) {
+                    return Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.transparent,
+                            Colors.black.withOpacity(1),
+                          ],
+                          begin: Alignment.center,
+                          end: Alignment.bottomCenter,
+                        ),
+                      ),
+                      alignment: Alignment.bottomCenter,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 5,
+                        color: Colors.white,
+                      ),
+                    );
+                  }
+                  return const SizedBox();
+                },
+              ),
+            ],
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blue,

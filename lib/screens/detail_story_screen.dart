@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:story_app_submission/common.dart';
 import 'package:story_app_submission/providers/story_provider.dart';
 import 'package:story_app_submission/utils/no_internet.dart';
+import 'package:story_app_submission/widgets/maps_screen.dart';
 
 class DetailStoryScreen extends StatefulWidget {
   final String storyId;
@@ -54,7 +55,7 @@ class _DetailStoryScreenState extends State<DetailStoryScreen> {
             return CustomScrollView(
               slivers: [
                 SliverAppBar(
-                  expandedHeight: 200,
+                  expandedHeight: 300,
                   flexibleSpace: FlexibleSpaceBar(
                     background: Hero(
                       tag: story!.id,
@@ -101,6 +102,13 @@ class _DetailStoryScreenState extends State<DetailStoryScreen> {
                             letterSpacing: 1,
                           ),
                         ),
+                        const SizedBox.square(dimension: 20),
+                        (story.lat != null && story.lon != null)
+                            ? MapsScreen(
+                              latitude: story.lat!,
+                              longitude: story.lon!,
+                            )
+                            : Container(),
                       ],
                     ),
                   ),

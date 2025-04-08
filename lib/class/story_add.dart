@@ -4,15 +4,25 @@ class StoryAdd {
   final String description;
   final List<int> photo;
   final String filename;
+  final double? lat;
+  final double? lon;
 
   StoryAdd({
     required this.description,
     required this.photo,
     required this.filename,
+    this.lat,
+    this.lon,
   });
 
   Map<String, dynamic> toJson() {
-    return {'description': description, 'photo': photo, 'filename': filename};
+    return {
+      'description': description,
+      'photo': photo,
+      'filename': filename,
+      'lat': lat,
+      'lon': lon,
+    };
   }
 }
 

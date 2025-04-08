@@ -4,17 +4,21 @@ import 'package:story_app_submission/providers/story_provider.dart';
 class ListCards extends StatelessWidget {
   final BuildContext context;
   final StoryProvider ref;
+  final ScrollController controller;
   final Function(String) onTapped;
   const ListCards({
     super.key,
     required this.context,
     required this.ref,
     required this.onTapped,
+    required this.controller,
   });
 
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
+      key: PageStorageKey('storyGrid'),
+      controller: controller,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: (MediaQuery.of(context).size.width ~/ 150).clamp(2, 4),
         crossAxisSpacing: 8,

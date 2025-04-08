@@ -9,10 +9,11 @@ import 'package:story_app_submission/utils/save_token.dart';
 class StoryService {
   static const String baseUrl = 'https://story-api.dicoding.dev/v1';
 
-  Future<ResponseStory> getStories() async {
+  Future<ResponseStory> getStories([pageItem = 1, sizeItem = 10]) async {
     final token = await SaveToken.getToken();
     final response = await http.get(
-      Uri.parse('$baseUrl/stories'),
+      Uri.parse('$baseUrl/stories?page=$pageItem&size=$sizeItem'),
+
       headers: {'Authorization': 'Bearer $token'},
     );
 
@@ -48,7 +49,11 @@ class StoryService {
       filename: story.filename,
     );
 
-    final Map<String, String> fields = {"description": story.description};
+    final Map<String, String> fields = {
+      "description": story.description,
+      "lat": story.lat.toString(),
+      "lon": story.lon.toString(),
+    };
     final Map<String, String> headers = {'Authorization': 'Bearer $token'};
 
     request.files.add(multiPartFile);

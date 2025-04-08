@@ -10,17 +10,33 @@ class StoryProvider extends ChangeNotifier {
   StoryProvider(this.storyService);
 
   bool isLoading = false;
+  bool loadingPaginate = false;
   String? errorMessage;
   List<Story> stories = [];
   Story? story;
   ResponseSuccessAddStory? storyAddResponse;
 
+  int? pageItems = 1;
+  int? sizeItems = 10;
+
   Future<void> getStories() async {
-    isLoading = true;
-    notifyListeners();
+    if (sizeItems == 10) {
+      isLoading = true;
+      notifyListeners();
+    }
     try {
-      final result = await storyService.getStories();
+      if (sizeItems != null && sizeItems! >= 20) {
+        loadingPaginate = true;
+        notifyListeners();
+      }
+      final result = await storyService.getStories(pageItems!, sizeItems!);
       stories = result.listStory;
+      if (result.listStory.length < sizeItems!) {
+        sizeItems = null;
+      } else {
+        sizeItems = sizeItems! + 10;
+      }
+      loadingPaginate = false;
       isLoading = false;
       notifyListeners();
     } catch (e) {
