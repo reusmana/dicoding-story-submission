@@ -1,38 +1,17 @@
-class ResponsesAuth {
-  final String message;
-  final bool error;
-  final User? loginResult;
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:story_app_submission/class/user.dart';
 
-  ResponsesAuth({required this.message, required this.error, this.loginResult});
+part 'responses_auth.g.dart';
+part 'responses_auth.freezed.dart';
 
-  factory ResponsesAuth.fromJson(Map<String, dynamic> json) {
-    return ResponsesAuth(
-      message: json['message'],
-      error: json['error'],
-      loginResult:
-          json['loginResult'] != null
-              ? User.fromJson(json['loginResult'])
-              : null,
-    );
-  }
-}
+@freezed
+abstract class ResponsesAuth with _$ResponsesAuth {
+  const factory ResponsesAuth({
+    required String message,
+    required bool error,
+    @JsonKey(name: 'loginResult') required User? loginResult,
+  }) = _ResponsesAuth;
 
-class User {
-  final String userId;
-  final String name;
-  final String token;
-
-  User({required this.userId, required this.name, required this.token});
-
-  Map<String, dynamic> toJson() {
-    return {'userId': userId, 'name': name, 'token': token};
-  }
-
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
-      userId: json['userId'],
-      name: json['name'],
-      token: json['token'],
-    );
-  }
+  factory ResponsesAuth.fromJson(Map<String, dynamic> json) =>
+      _$ResponsesAuthFromJson(json);
 }

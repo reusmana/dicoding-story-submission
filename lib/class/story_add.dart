@@ -1,44 +1,18 @@
-import 'dart:convert';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class StoryAdd {
-  final String description;
-  final List<int> photo;
-  final String filename;
-  final double? lat;
-  final double? lon;
+part 'story_add.g.dart';
+part 'story_add.freezed.dart';
 
-  StoryAdd({
-    required this.description,
-    required this.photo,
-    required this.filename,
-    this.lat,
-    this.lon,
-  });
+@freezed
+abstract class StoryAdd with _$StoryAdd {
+  const factory StoryAdd({
+    required String description,
+    required List<int> photo,
+    required String filename,
+    double? lat,
+    double? lon,
+  }) = _StoryAdd;
 
-  Map<String, dynamic> toJson() {
-    return {
-      'description': description,
-      'photo': photo,
-      'filename': filename,
-      'lat': lat,
-      'lon': lon,
-    };
-  }
-}
-
-class ResponseSuccessAddStory {
-  final bool error;
-  final String message;
-
-  ResponseSuccessAddStory({required this.error, required this.message});
-
-  factory ResponseSuccessAddStory.fromMap(Map<String, dynamic> json) {
-    return ResponseSuccessAddStory(
-      error: json['error'] ?? false,
-      message: json['message'] ?? "",
-    );
-  }
-
-  factory ResponseSuccessAddStory.fromJson(String source) =>
-      ResponseSuccessAddStory.fromMap(json.decode(source));
+  factory StoryAdd.fromJson(Map<String, dynamic> json) =>
+      _$StoryAddFromJson(json);
 }

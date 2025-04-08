@@ -30,7 +30,6 @@ class _AddStoryScreenState extends State<AddStoryScreen> {
   }
 
   void getMaps(LatLng latLng) async {
-    print(latLng);
     maps = latLng;
   }
 

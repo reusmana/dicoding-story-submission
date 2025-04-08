@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:story_app_submission/class/response_story.dart';
+import 'package:story_app_submission/class/response_success_add_story.dart';
+import 'package:story_app_submission/class/story.dart';
 import 'package:story_app_submission/class/story_add.dart';
 import 'package:story_app_submission/data/story_service.dart';
 import 'package:image/image.dart' as img;

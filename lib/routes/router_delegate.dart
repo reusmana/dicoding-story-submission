@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:story_app_submission/class/page_configuration.dart';
-import 'package:story_app_submission/class/response_story.dart';
+import 'package:story_app_submission/class/story.dart';
 import 'package:story_app_submission/data/auth_service.dart';
 import 'package:story_app_submission/screens/add_story_screen.dart';
 import 'package:story_app_submission/screens/detail_story_screen.dart';
@@ -149,24 +149,24 @@ class MyRouterDelegate extends RouterDelegate<PageConfiguration>
 
   @override
   Future<void> setNewRoutePath(PageConfiguration configuration) async {
-    if (configuration.isuknownPage) {
+    if (configuration is UnknownPage) {
       isUnknown = true;
       isRegister = false;
-    } else if (configuration.isRegisterPage) {
+    } else if (configuration is RegisterPage) {
       isRegister = true;
-    } else if (configuration.isHomePage ||
-        configuration.isLoginPage ||
-        configuration.isSplashPage) {
+    } else if (configuration is HomePage ||
+        configuration is LoginPage ||
+        configuration is SplashPage) {
       isUnknown = false;
       selectedStory = null;
       isRegister = false;
       additionalData = false;
-    } else if (configuration.isDetailPage) {
+    } else if (configuration is DetailStoryPage) {
       isUnknown = false;
       isRegister = false;
       additionalData = false;
       selectedStory = configuration.storyId.toString();
-    } else if (configuration.isAddStory) {
+    } else if (configuration is AddStoryPage) {
       isUnknown = false;
       isRegister = false;
       additionalData = true;
@@ -186,7 +186,7 @@ class MyRouterDelegate extends RouterDelegate<PageConfiguration>
     } else if (isLoggedIn == false) {
       return PageConfiguration.login();
     } else if (isUnknown == true) {
-      return PageConfiguration.uknown();
+      return PageConfiguration.unknown();
     } else if (selectedStory == null) {
       return PageConfiguration.home();
     } else if (selectedStory != null) {

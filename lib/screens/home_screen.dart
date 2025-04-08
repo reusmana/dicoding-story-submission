@@ -2,7 +2,7 @@ import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:story_app_submission/class/localization.dart';
-import 'package:story_app_submission/class/response_story.dart';
+import 'package:story_app_submission/class/story.dart';
 import 'package:story_app_submission/common.dart';
 import 'package:story_app_submission/providers/auth_provider.dart';
 import 'package:story_app_submission/providers/localizations_provider.dart';

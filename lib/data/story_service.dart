@@ -3,6 +3,8 @@ import 'dart:typed_data';
 
 import 'package:story_app_submission/class/response_story.dart';
 import 'package:http/http.dart' as http;
+import 'package:story_app_submission/class/response_story_detail.dart';
+import 'package:story_app_submission/class/response_success_add_story.dart';
 import 'package:story_app_submission/class/story_add.dart';
 import 'package:story_app_submission/utils/save_token.dart';
 
@@ -67,7 +69,7 @@ class StoryService {
     final String responseData = String.fromCharCodes(responseList);
 
     if (statusCode == 201) {
-      return ResponseSuccessAddStory.fromJson(responseData);
+      return ResponseSuccessAddStory.fromJson(jsonDecode(responseData));
     } else {
       throw Exception("Upload file error");
     }

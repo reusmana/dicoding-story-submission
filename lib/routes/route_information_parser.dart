@@ -5,19 +5,19 @@ class MyRouteInformationParser
     extends RouteInformationParser<PageConfiguration> {
   @override
   RouteInformation? restoreRouteInformation(PageConfiguration configuration) {
-    if (configuration.isuknownPage) {
+    if (configuration is UnknownPage) {
       return const RouteInformation(location: '/unknown');
-    } else if (configuration.isSplashPage) {
+    } else if (configuration is SplashPage) {
       return const RouteInformation(location: '/splash');
-    } else if (configuration.isRegisterPage) {
+    } else if (configuration is RegisterPage) {
       return const RouteInformation(location: '/register');
-    } else if (configuration.isLoginPage) {
+    } else if (configuration is LoginPage) {
       return const RouteInformation(location: '/login');
-    } else if (configuration.isHomePage) {
+    } else if (configuration is HomePage) {
       return const RouteInformation(location: '/');
-    } else if (configuration.isDetailPage) {
+    } else if (configuration is DetailStoryPage) {
       return RouteInformation(location: '/story/${configuration.storyId}');
-    } else if (configuration.isAddStory) {
+    } else if (configuration is AddStoryPage) {
       return const RouteInformation(location: '/add/story');
     } else {
       return null;
@@ -42,7 +42,7 @@ class MyRouteInformationParser
       } else if (first == "splash") {
         return PageConfiguration.splash();
       } else {
-        return PageConfiguration.uknown();
+        return PageConfiguration.unknown();
       }
     } else if (uri.pathSegments.length == 2) {
       final first = uri.pathSegments.first.toLowerCase();
@@ -54,10 +54,10 @@ class MyRouteInformationParser
       } else if (first == 'add' && second == 'story') {
         return PageConfiguration.addStory();
       } else {
-        return PageConfiguration.uknown();
+        return PageConfiguration.unknown();
       }
     } else {
-      return PageConfiguration.uknown();
+      return PageConfiguration.unknown();
     }
   }
 }
