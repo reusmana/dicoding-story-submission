@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:story_app_submission/class/story_add.dart';
 import 'package:story_app_submission/common.dart';
+import 'package:story_app_submission/flavors.dart';
 import 'package:story_app_submission/providers/home_provider.dart';
 import 'package:story_app_submission/providers/story_provider.dart';
 import 'package:story_app_submission/widgets/put_maps.dart';
@@ -21,7 +22,7 @@ class AddStoryScreen extends StatefulWidget {
 
 class _AddStoryScreenState extends State<AddStoryScreen> {
   TextEditingController descriptionController = TextEditingController();
-  late LatLng? maps;
+  LatLng? maps;
 
   @override
   void dispose() {
@@ -62,11 +63,13 @@ class _AddStoryScreenState extends State<AddStoryScreen> {
                     ),
                   )
                   : _showImage(),
-              PutMaps(
-                selectMaps: (LatLng latLng) {
-                  getMaps(latLng);
-                },
-              ),
+              F.appFlavor == Flavor.paid
+                  ? PutMaps(
+                    selectMaps: (LatLng latLng) {
+                      getMaps(latLng);
+                    },
+                  )
+                  : Container(),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(

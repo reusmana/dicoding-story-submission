@@ -1,0 +1,27 @@
+app:
+  android:
+    flavorDimensions: "flavor-type"
+  ios:
+    targets:
+      Runner:
+        buildSettings:
+          PRODUCT_BUNDLE_IDENTIFIER: "com.example.story_app_submission"
+
+flavors:
+  free:
+    app:
+      name: "Story App Submission Free"
+      bundleId: "com.example.story_app_submission.free"
+    android:
+      applicationId: "com.example.story_app_submission.free"
+    ios:
+      bundleId: "com.example.story_app_submission.free"
+
+  paid:
+    app:
+      name: "Story App Submission Paid"
+      bundleId: "com.example.story_app_submission.paid"
+    android:
+      applicationId: "com.example.story_app_submission.paid"
+    ios:
+      bundleId: "com.example.story_app_submission.paid"

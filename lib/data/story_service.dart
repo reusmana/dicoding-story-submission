@@ -53,8 +53,8 @@ class StoryService {
 
     final Map<String, String> fields = {
       "description": story.description,
-      "lat": story.lat.toString(),
-      "lon": story.lon.toString(),
+      if (story.lat != null) "lat": story.lat.toString(),
+      if (story.lon != null) "lat": story.lon.toString(),
     };
     final Map<String, String> headers = {'Authorization': 'Bearer $token'};
 

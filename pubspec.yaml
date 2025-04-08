@@ -30,6 +30,7 @@ dependencies:
   geocoding: ^3.0.0
   json_annotation: ^4.9.0
   freezed_annotation: ^3.0.0
+  flutter_flavorizr: ^2.3.0
 
 dev_dependencies:
   flutter_test:
