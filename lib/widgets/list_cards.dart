@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:story_app_submission/providers/story_provider.dart';
+import 'package:story_app_submission/widgets/animate_grid.dart';
 
 class ListCards extends StatelessWidget {
   final BuildContext context;
@@ -30,74 +31,78 @@ class ListCards extends StatelessWidget {
       itemBuilder: (context, index) {
         return Padding(
           padding: const EdgeInsets.all(8.0),
-          child: GestureDetector(
+          child: AnimateGrid(
             key: ValueKey(ref.stories[index].id),
-            onTap: () {
-              onTapped(ref.stories[index].id);
-            },
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: Stack(
-                fit: StackFit.loose,
-                children: [
-                  Hero(
-                    tag: ref.stories[index].id,
-                    child: Image.network(
-                      ref.stories[index].photoUrl,
-                      width: double.infinity,
-                      height: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      gradient: LinearGradient(
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
-                        colors: [
-                          Colors.black.withOpacity(0.7),
-                          Colors.transparent,
-                        ],
+            delay: Duration(milliseconds: index * 20),
+            child: GestureDetector(
+              key: ValueKey(ref.stories[index].id),
+              onTap: () {
+                onTapped(ref.stories[index].id);
+              },
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Stack(
+                  fit: StackFit.loose,
+                  children: [
+                    Hero(
+                      tag: ref.stories[index].id,
+                      child: Image.network(
+                        ref.stories[index].photoUrl,
+                        width: double.infinity,
+                        height: double.infinity,
+                        fit: BoxFit.cover,
                       ),
                     ),
-                  ),
-                  Positioned(
-                    bottom: 10,
-                    left: 10,
-                    right: 10,
-                    child: Container(
+                    Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Colors.white,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                ref.stories[index].name,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ),
-                            Icon(
-                              Icons.arrow_circle_right_rounded,
-                              color: Colors.blue,
-                              size: 30,
-                            ),
+                        borderRadius: BorderRadius.circular(12),
+                        gradient: LinearGradient(
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
+                          colors: [
+                            Colors.black.withOpacity(0.7),
+                            Colors.transparent,
                           ],
                         ),
                       ),
                     ),
-                  ),
-                ],
+                    Positioned(
+                      bottom: 10,
+                      left: 10,
+                      right: 10,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: Colors.white,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  ref.stories[index].name,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ),
+                              Icon(
+                                Icons.arrow_circle_right_rounded,
+                                color: Colors.blue,
+                                size: 30,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
